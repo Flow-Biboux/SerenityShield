@@ -17,7 +17,13 @@ pub mod presale {
         amount_to_deposit: u64,
         start_of_sale: i64,
         conversion_rate: u64,
+        min_invested: u64,
+        max_invested: u64,
     ) -> ProgramResult {
+        /// minimum money / max ?
+        /// whitelist ?
+        ///
+        ///
         let cpi_vesting = ctx.accounts.vesting_program.to_account_info();
         let cpi_referral = ctx.accounts.referral_program.to_account_info();
 
@@ -69,4 +75,10 @@ pub mod presale {
 pub struct Initialize<'info> {
     pub vesting_program: Program<'info, Vesting>,
     pub referral_program: Program<'info, Referral>,
+    pub whitelist: Account<'info,Whitelist>,
+}
+
+#[account()]
+pub struct Whitelist {
+    pub authority: Pubkey,
 }
